@@ -20,7 +20,7 @@ from nonlinear_estimation_toolbox.filters.ukf import UKF
 from nonlinear_estimation_toolbox.utils import ColumnVectors
 
 
-def run_example():
+def run_example(plot: bool = False):
     np.random.seed(2002)
 
     # Reuse system model from previous examples
@@ -121,6 +121,9 @@ def run_example():
     runtimes_update_ms = 1000 * runtimes_update
     runtimes_prediction_ms = 1000 * runtimes_prediction
 
+    if not plot:
+        return
+
     # The example ends here, from now on we only draw plots
     utils_complete.plot_trajectories(
         "complete_example.png",
@@ -163,4 +166,4 @@ def run_example():
 
 
 if __name__ == "__main__":
-    run_example()
+    run_example(plot=True)
