@@ -15,7 +15,7 @@ def is_pos_scalar(s: Union[int, float]) -> bool:
     return False
 
 
-def is_single_vec(v: np.ndarray, dim: int | None = None) -> bool:
+def is_single_vec(v: np.ndarray, dim: Union[int, None] = None) -> bool:
     # todo still need to decide whether [] counts as a vector
     if dim is None:
         return len(v.shape) == 2 and v.shape[1] == 1
@@ -23,7 +23,7 @@ def is_single_vec(v: np.ndarray, dim: int | None = None) -> bool:
         return len(v.shape) == 2 and v.shape[1] == 1 and v.shape[0] == dim
 
 
-def is_single_row_vec(v: np.ndarray, dim: int | None = None) -> bool:
+def is_single_row_vec(v: np.ndarray, dim: Union[int, None] = None) -> bool:
     if dim is None:
         return len(v.shape) == 2 and v.shape[0] == 1
     else:
@@ -31,7 +31,7 @@ def is_single_row_vec(v: np.ndarray, dim: int | None = None) -> bool:
 
 
 def is_array_of_vecs(
-    v: np.ndarray, dim: int | None = None, num: int | None = None
+    v: np.ndarray, dim: Union[int, None] = None, num: Union[int, None] = None
 ) -> bool:
     is_vec_valid = len(v.shape) == 2 and v.shape[1] >= 1
     if dim is not None:
@@ -41,7 +41,9 @@ def is_array_of_vecs(
     return is_vec_valid
 
 
-def is_mat(m: np.ndarray, rows: int | None = None, cols: int | None = None) -> bool:
+def is_mat(
+    m: np.ndarray, rows: Union[int, None] = None, cols: Union[int, None] = None
+) -> bool:
     if rows is None and cols is None:
         return len(m.shape) == 2
     elif rows is None and cols is not None:
@@ -94,7 +96,7 @@ def compute_cholesky_if_valid_covariance(
 
 
 def compute_cholesky_if_valid_3d_covariance(
-    m: np.ndarray, dim: int | None = None, num_covs: int | None = None
+    m: np.ndarray, dim: Union[int, None] = None, num_covs: Union[int, None] = None
 ) -> np.ndarray:
     """Compute the Cholesky decomposition of a list of covariance matrices, if the matrices are valid.
 
