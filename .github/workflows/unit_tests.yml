@@ -18,8 +18,7 @@ jobs:
 
     - name: Checkout code
       uses: actions/checkout@v2
-      with:
-        path: ${{ runner.temp }}/tmp_dir/code
+      working_directory: ${{ runner.temp }}/tmp_dir/code
 
     - name: Set up Python in temporary directory
       run: |
