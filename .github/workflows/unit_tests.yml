@@ -13,27 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Create writable temporary directory
-      run: mkdir -p ${{ runner.temp }}/tmp_dir
-
     - name: Checkout code
       uses: actions/checkout@v2
-      working-directory: ${{ runner.temp }}/tmp_dir/code
 
-    - name: Set up Python in temporary directory
-      run: |
-        python_version='3.10'
-        python_dir=${{ runner.temp }}/tmp_dir/python-$python_version
-        python -m venv $python_dir
-        source $python_dir/bin/activate
-        pip install --upgrade pip
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
-        source $python_dir/bin/activate
-        pip install ${{ runner.temp }}/tmp_dir/code
+        python -m pip install --upgrade pip
+        pip install .
 
     - name: Run tests
       run: |
-        source $python_dir/bin/activate
-        pytest ${{ runner.temp }}/tmp_dir/code/test
+        pytest test
