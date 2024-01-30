@@ -85,6 +85,8 @@ class SampleCache:
         samples, weights = self.compute_samples(dimension, num_samples)
 
         filename = self.get_sample_filename(dimension, num_samples)
+        if filename == "":
+            return
 
         self._save_samples_and_weights(filename, samples, weights)
 
