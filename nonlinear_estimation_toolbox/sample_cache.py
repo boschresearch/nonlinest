@@ -1,4 +1,5 @@
 import os
+from typing import Tuple
 
 import numpy as np
 
@@ -14,7 +15,7 @@ class SampleCache:
 
     def get_samples(
         self, dimension: int, num_samples: int
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> Tuple[np.ndarray, np.ndarray]:
         self._check_request(dimension, num_samples)
 
         if dimension not in self.data or num_samples not in self.data[dimension]:
@@ -134,7 +135,7 @@ class SampleCacheCKF(SampleCache):
 
     def compute_samples(
         self, dimension: int, num_samples: int
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> Tuple[np.ndarray, np.ndarray]:
         axes_samples, axes_weights = self._compute_axes_samples(dimension)
         off_axes_samples, off_axes_weights = self._compute_off_axes_samples(dimension)
 
@@ -144,7 +145,7 @@ class SampleCacheCKF(SampleCache):
         return samples, weights
 
     @staticmethod
-    def _compute_axes_samples(dimension: int) -> tuple[np.ndarray, np.ndarray]:
+    def _compute_axes_samples(dimension: int) -> Tuple[np.ndarray, np.ndarray]:
         samples = np.sqrt(dimension + 2) * np.hstack(
             [np.zeros([dimension, 1]), -np.eye(dimension), np.eye(dimension)]
         )
@@ -157,7 +158,7 @@ class SampleCacheCKF(SampleCache):
         return samples, weights
 
     @staticmethod
-    def _compute_off_axes_samples(dim: int) -> tuple[np.ndarray, np.ndarray]:
+    def _compute_off_axes_samples(dim: int) -> Tuple[np.ndarray, np.ndarray]:
         n = int(dim * (dim - 1) / 2)
         if n > 0:
             s1 = np.zeros([dim, n])
@@ -234,7 +235,7 @@ class SampleCacheGHQ(SampleCache):
 
     def compute_samples(
         self, dimension: int, num_samples: int
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> Tuple[np.ndarray, np.ndarray]:
         samples = self._cartesian_product(self.one_dim_samples, dimension)
         weights = self._cartesian_product(self.one_dim_weights, dimension)
 

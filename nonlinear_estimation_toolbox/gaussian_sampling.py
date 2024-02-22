@@ -1,3 +1,5 @@
+from typing import Tuple
+
 import numpy as np
 
 import nonlinear_estimation_toolbox.checks as checks
@@ -9,7 +11,7 @@ from nonlinear_estimation_toolbox import sample_cache
 class GaussianSampling:
     def get_samples(
         self, gaussian: distributions.Gaussian
-    ) -> (np.ndarray, np.ndarray, int):
+    ) -> Tuple[np.ndarray, np.ndarray, int]:
         mean, _, cov_sqrt = gaussian.get_mean_and_covariance()
         dim = gaussian.get_dimension()
 
@@ -35,7 +37,9 @@ class GaussianSamplingUKF(GaussianSampling):
     def get_sample_scaling(self) -> float:
         return self.scaling
 
-    def get_std_normal_samples(self, dimension: int) -> (np.ndarray, np.ndarray, int):
+    def get_std_normal_samples(
+        self, dimension: int
+    ) -> Tuple[np.ndarray, np.ndarray, int]:
         if not checks.is_pos_scalar(dimension):
             raise ValueError("InvalidDimension: dimension must be a positive scalar.")
 
@@ -80,7 +84,7 @@ class GaussianSamplingRUKF(GaussianSampling):
     def get_numiterations(self):
         return self.num_iterations
 
-    def get_std_normal_samples(self, dim: int) -> (np.ndarray, np.ndarray, int):
+    def get_std_normal_samples(self, dim: int) -> Tuple[np.ndarray, np.ndarray, int]:
         if not checks.is_pos_scalar(dim):
             raise ValueError("Dimension must be a positive scalar")
 
@@ -110,7 +114,7 @@ class GaussianSamplingCKF(GaussianSampling):
     def __init__(self):
         self.sample_cache = sample_cache.SampleCacheCKF()
 
-    def get_std_normal_samples(self, dim: int) -> [np.ndarray, np.ndarray, int]:
+    def get_std_normal_samples(self, dim: int) -> Tuple[np.ndarray, np.ndarray, int]:
         if not checks.is_pos_scalar(dim):
             raise ValueError("Dimension must be a positive scalar")
 
@@ -134,7 +138,7 @@ class GaussianSamplingGHQ(GaussianSampling):
     def get_num_quadature_points(self) -> int:
         return self.sample_cache.get_num_quadrature_points()
 
-    def get_std_normal_samples(self, dim: int) -> tuple[np.ndarray, np.ndarray, int]:
+    def get_std_normal_samples(self, dim: int) -> Tuple[np.ndarray, np.ndarray, int]:
         if not checks.is_pos_scalar(dim):
             raise ValueError("Dimension must be a positive scalar")
 
