@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Tuple, Union
 
 import numpy as np
 
@@ -21,7 +21,7 @@ class SampleBasedLinearGaussianFilter(LinearGaussianFilter):
 
     def predict_system_model(
         self, sys_model: SystemModel
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> Tuple[np.ndarray, np.ndarray]:
         # todo untested
         noise_mean, _, noise_cov_sqrt = sys_model.noise.get_mean_and_covariance()
         dim_noise = noise_cov_sqrt.shape[0]
@@ -52,7 +52,7 @@ class SampleBasedLinearGaussianFilter(LinearGaussianFilter):
 
     def predict_additive_noise_system_model(
         self, sys_model: AdditiveNoiseSystemModel
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> Tuple[np.ndarray, np.ndarray]:
         noise_mean, noise_cov, _ = sys_model.noise.get_mean_and_covariance()
         dim_noise = noise_cov.shape[0]
 
@@ -83,7 +83,7 @@ class SampleBasedLinearGaussianFilter(LinearGaussianFilter):
         dim_meas: int,
         state_mean: np.ndarray,
         state_cov_sqrt: np.ndarray,
-    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         # this function does not use dimState, state_mean and state_cov_sqrt from the class!
         dim_state = state_cov_sqrt.shape[0]
 
@@ -109,7 +109,7 @@ class SampleBasedLinearGaussianFilter(LinearGaussianFilter):
         state_cov_sqrt: np.ndarray,
         noise_mean: np.ndarray,
         noise_cov_sqrt: np.ndarray,
-    ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         # this function does not use dim_state, state_mean and state_cov_sqrt from the class!
         dim_state = state_cov_sqrt.shape[0]
         dim_noise = noise_cov_sqrt.shape[0]
@@ -203,7 +203,7 @@ class SampleBasedLinearGaussianFilter(LinearGaussianFilter):
         weights: np.ndarray,
         zero_mean_state_samples: np.ndarray,
         zero_mean_noise_samples: np.ndarray = None,
-    ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         num_samples = h_samples.shape[1]
 
         if np.isscalar(weights):
