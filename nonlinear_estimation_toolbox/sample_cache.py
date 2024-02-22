@@ -1,5 +1,4 @@
 import os
-import warnings
 
 import numpy as np
 
@@ -91,18 +90,9 @@ class SampleCache:
         self._save_samples_and_weights(filename, samples, weights)
 
     def get_sample_filename(self, dimension: int, num_samples: int) -> str:
-<<<<<<< HEAD
         return os.path.join(
             self.full_sample_cache_path,
             f"{dimension}D-{num_samples}S.samples.npz",
-=======
-        if self.sample_cache_path is None:
-            return ""
-        return "%s/%dD-%dS.samples.npy" % (
-            self.sample_cache_path,
-            dimension,
-            num_samples,
->>>>>>> 0799932 (Try fixing non-writable disk)
         )
 
     @staticmethod
