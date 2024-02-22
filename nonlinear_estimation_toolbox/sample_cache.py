@@ -88,10 +88,11 @@ class SampleCache:
             raise RuntimeError("saving to %s failed" % filename)
 
     def get_sample_filename(self, dimension: int, num_samples: int) -> str:
-        return "%s/%dD-%dS.samples.npy" % (
-            self.sample_cache_path,
-            dimension,
-            num_samples,
+        base_dir = os.path.join("~", ".cache", "nonlinest")
+        os.makedirs(base_dir, exist_ok=True)
+        return os.path.join(
+            base_dir,
+            f"{dimension}D-{num_samples}S.samples.npy",
         )
 
 
