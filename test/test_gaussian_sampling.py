@@ -28,12 +28,12 @@ class TestGaussianSampling:
         assert num_samples == true_num_samples
         assert samples.shape == (dim, num_samples)
         assert weights.shape == (1, num_samples)
-        np.testing.assert_allclose(np.sum(weights), 1, atol=tol)
+        assert np.allclose(np.sum(weights), 1, atol=tol)
 
         mean, cov = utils.get_sample_mean_and_covariance(samples, weights)
 
-        np.testing.assert_allclose(mean, np.zeros([dim, 1]), atol=tol)
-        np.testing.assert_allclose(cov, np.eye(dim), atol=tol)
+        assert np.allclose(mean, np.zeros([dim, 1]), atol=tol)
+        assert np.allclose(cov, np.eye(dim), atol=tol)
 
     def _test_get_std_normal_samples_equally_weighted(
         self, g: gaussian_sampling.GaussianSampling, dim, trueNumSamples, tol
