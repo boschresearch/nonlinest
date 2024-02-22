@@ -134,7 +134,7 @@ class GaussianSamplingGHQ(GaussianSampling):
     def get_num_quadature_points(self) -> int:
         return self.sample_cache.get_num_quadrature_points()
 
-    def get_std_normal_samples(self, dim: int) -> [np.ndarray, np.ndarray, int]:
+    def get_std_normal_samples(self, dim: int) -> tuple[np.ndarray, np.ndarray, int]:
         if not checks.is_pos_scalar(dim):
             raise ValueError("Dimension must be a positive scalar")
 

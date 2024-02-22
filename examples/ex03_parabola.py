@@ -50,9 +50,6 @@ def run_example(plot_each_step=False):
     parabola_meas_model = utils_parabola.ParabolaMeasModel()
     # note, we do not set a system model for this experiment because the underlying system - the parabola - is constant.
 
-    # a manager, which is used for plotting
-    plot_manager = utils_parabola.ParabolaPlotManager()
-
     # recursion loop
     for i in range(NUM_STEPS):
         # sample number of measurements
@@ -84,8 +81,10 @@ def run_example(plot_each_step=False):
         # update parabola with measurements
         parabola_ekf.update(meas_model=parabola_meas_model, measurement=y_points)
 
-        # plot intermediate result...
+        # plot intermediate result... (can be disabled for tests)
         if plot_each_step:
+            plot_manager = utils_parabola.ParabolaPlotManager()
+
             points = ColumnVectors(np.hstack([x_points, y_points]).T)
             plot_manager.create_plot(
                 gt_parabola_state=gt_parabola.state,

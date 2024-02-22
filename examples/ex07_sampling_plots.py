@@ -12,33 +12,43 @@ from nonlinear_estimation_toolbox.gaussian_sampling import (
     GaussianSamplingUKF,
 )
 
-np.random.seed(2)
 
-samplings = [
-    GaussianSamplingUKF(),
-    GaussianSamplingCKF(),
-    GaussianSamplingGHQ(),
-    GaussianSamplingRUKF(),
-]
-names = ["UKF", "CKF", "GHKF", "RUKF"]
+def run(plot: bool = False):
+    np.random.seed(2)
 
-for s, name in zip(samplings, names):
-    dim = 2
-    samples, weight, _ = s.get_std_normal_samples(dim)
+    samplings = [
+        GaussianSamplingUKF(),
+        GaussianSamplingCKF(),
+        GaussianSamplingGHQ(),
+        GaussianSamplingRUKF(),
+    ]
+    names = ["UKF", "CKF", "GHKF", "RUKF"]
 
-    print(f"plotting {name}")
-    plt.figure()
-    plt.gca().add_patch(
-        plt.Circle(
-            [0, 0], radius=2, facecolor="none", edgecolor="black", label="$2 |si"
+    for s, name in zip(samplings, names):
+        dim = 2
+        samples, weight, _ = s.get_std_normal_samples(dim)
+
+        # disable plotting for testing
+        if not plot:
+            return
+
+        print(f"plotting {name}")
+        plt.figure()
+        plt.gca().add_patch(
+            plt.Circle(
+                [0, 0], radius=2, facecolor="none", edgecolor="black", label="$2 |si"
+            )
         )
-    )
-    plt.plot(samples[0, :], samples[1, :], "o", label="samples")
-    plt.legend()
+        plt.plot(samples[0, :], samples[1, :], "o", label="samples")
+        plt.legend()
 
-    plt.title(name)
-    plt.axis("equal")
-    plt.ylim([-2.2, 2.2])
-    plt.xlabel("$x_1$")
-    plt.ylabel("$x_2$")
-    plt.savefig(f"samples-{name}.png")
+        plt.title(name)
+        plt.axis("equal")
+        plt.ylim([-2.2, 2.2])
+        plt.xlabel("$x_1$")
+        plt.ylabel("$x_2$")
+        plt.savefig(f"samples-{name}.png")
+
+
+if __name__ == "__main__":
+    run(plot=False)
