@@ -579,7 +579,7 @@ class TestFilterUpdate:
                 .T.dot(np.linalg.inv(true_meas_cov))
                 .dot(true_meas_mean - measurement)
             )
-            normalized_dist = chi2.cdf(float(meas_dist), dim_meas)
+            normalized_dist = chi2.cdf(meas_dist.item(), dim_meas)
 
             f.set_measurement_gating_threshold(normalized_dist * 0.5)
 
@@ -646,7 +646,7 @@ class TestFilterUpdate:
                 .T.dot(np.linalg.inv(true_meas_cov))
                 .dot(true_meas_mean - measurement)
             )
-            normalized_dist = chi2.cdf(float(meas_dist), dim_meas)
+            normalized_dist = chi2.cdf(meas_dist.item(), dim_meas)
 
             f.set_measurement_gating_threshold(normalized_dist * 0.5)
 

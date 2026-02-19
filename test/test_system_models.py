@@ -83,7 +83,7 @@ class TestLinearSystemModel:
         sys_matrix = np.eye(2)
         sys_model = LinearSystemModel(sys_matrix=sys_matrix)
 
-        testing.assert_array_equal(x=sys_model.sys_matrix, y=sys_matrix)
+        testing.assert_array_equal(actual=sys_model.sys_matrix, desired=sys_matrix)
         assert sys_model.sys_input is None
         assert sys_model.sys_noise_matrix is None
         assert isinstance(sys_model.noise, Distribution)
@@ -95,9 +95,11 @@ class TestLinearSystemModel:
             sys_matrix=sys_matrix, sys_noise_matrix=sys_noise_matrix
         )
 
-        testing.assert_array_equal(x=sys_model.sys_matrix, y=sys_matrix)
+        testing.assert_array_equal(actual=sys_model.sys_matrix, desired=sys_matrix)
         assert sys_model.sys_input is None
-        testing.assert_array_equal(x=sys_model.sys_noise_matrix, y=sys_noise_matrix)
+        testing.assert_array_equal(
+            actual=sys_model.sys_noise_matrix, desired=sys_noise_matrix
+        )
         assert isinstance(sys_model.noise, Distribution)
 
     def test_set_system_matrix(self):
@@ -106,7 +108,7 @@ class TestLinearSystemModel:
 
         sys_model.set_system_matrix(sys_matrix=sys_matrix)
 
-        testing.assert_array_equal(x=sys_model.sys_matrix, y=sys_matrix)
+        testing.assert_array_equal(actual=sys_model.sys_matrix, desired=sys_matrix)
         assert sys_model.sys_input is None
         assert sys_model.sys_noise_matrix is None
         assert isinstance(sys_model.noise, Distribution)
@@ -129,7 +131,7 @@ class TestLinearSystemModel:
         sys_model.set_system_input(sys_input=sys_input)
 
         assert sys_model.sys_matrix is None
-        testing.assert_array_equal(x=sys_model.sys_input, y=sys_input)
+        testing.assert_array_equal(actual=sys_model.sys_input, desired=sys_input)
         assert sys_model.sys_noise_matrix is None
         assert isinstance(sys_model.noise, Distribution)
 
@@ -152,7 +154,9 @@ class TestLinearSystemModel:
 
         assert sys_model.sys_matrix is None
         assert sys_model.sys_input is None
-        testing.assert_array_equal(x=sys_model.sys_noise_matrix, y=sys_noise_matrix)
+        testing.assert_array_equal(
+            actual=sys_model.sys_noise_matrix, desired=sys_noise_matrix
+        )
         assert isinstance(sys_model.noise, Distribution)
 
     def test_simulate(self):

@@ -290,7 +290,7 @@ def kalman_update(
     updated_state_mean = state_mean + A.dot(t)
     updated_state_cov = state_covariance - A.dot(A.T)
 
-    sq_meas_mahal_dist = float(t.T.dot(t))
+    sq_meas_mahal_dist = t.T.dot(t).item()
 
     return updated_state_mean, updated_state_cov, sq_meas_mahal_dist
 

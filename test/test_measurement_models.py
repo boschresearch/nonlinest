@@ -81,7 +81,7 @@ class TestLinearMeasurementModel:
         meas_matrix = np.ones(shape=(2, 3))
         meas_model = LinearMeasurementModel(meas_matrix=meas_matrix)
 
-        testing.assert_array_equal(x=meas_model.meas_matrix, y=meas_matrix)
+        testing.assert_array_equal(actual=meas_model.meas_matrix, desired=meas_matrix)
         assert isinstance(meas_model.noise, Distribution)
 
     def test_set_measurement_matrix(self):
@@ -90,7 +90,7 @@ class TestLinearMeasurementModel:
 
         meas_model.set_measurement_matrix(meas_matrix=meas_matrix)
 
-        testing.assert_array_equal(x=meas_model.meas_matrix, y=meas_matrix)
+        testing.assert_array_equal(actual=meas_model.meas_matrix, desired=meas_matrix)
         assert isinstance(meas_model.noise, Distribution)
 
     def test_set_measurement_matrix_empty(self):
@@ -99,7 +99,7 @@ class TestLinearMeasurementModel:
 
         meas_model.set_measurement_matrix(meas_matrix=meas_matrix)
 
-        testing.assert_array_equal(x=meas_model.meas_matrix, y=None)
+        testing.assert_array_equal(actual=meas_model.meas_matrix, desired=None)
         assert isinstance(meas_model.noise, Distribution)
 
     def test_simulate(self):

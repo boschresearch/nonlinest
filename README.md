@@ -25,7 +25,7 @@ pip install -e .
 ```
 instead.
 
-At least Python 3.6 is required.
+At least Python 3.10 is required.
 
 Usage
 -----
