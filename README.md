@@ -101,7 +101,7 @@ Your contribution must be licensed under the Apache-2.0 license, the license use
 Authors
 -------
 * Florian Faion (email Florian.Faion@de.bosch.com)
-* Maxim Dolgov (email Maxim.Dolgov@de.bosch.com)
+* Maxim Dolgov (email maxim.dolgov@hs-pforzheim.de)
 * Gerhard Kurz (email Gerhard.Kurz2@de.bosch.com)
 * Benjamin Schmidt
 
