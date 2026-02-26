@@ -4,7 +4,7 @@ NonlinEst
 NonlinEst is a Python library for nonlinear filtering and estimation. It includes many common filtering algorithms such as
 * Extended Kalman filter (EKF)
 * Unscented Kalman filter (UKF)
-* Cubature Kalman filter (CFK)
+* Cubature Kalman filter (CKF)
 * Ensemble Kalman filter (EnKF)
 * Gaussian Hermite Kalman filter (GHKF)
 * Gaussian Particle Filter (GPF)
@@ -18,7 +18,7 @@ To install the library, create a virtual environment and then run
 
 ```
 pip install .
-````
+```
 This will automatically install the needed dependencies. If the library should be installed for modification, then use
 ```
 pip install -e .
@@ -29,7 +29,7 @@ At least Python 3.10 is required.
 
 Usage
 -----
-To apply the library to your own problems, you first need to implement your system and measurement model by creating a class that inherits from a suitable sub-class of SystemModel or MeasurementModel.Then you can instantiate one of the provided filters and call the predict() and update() methods.
+To apply the library to your own problems, you first need to implement your system and measurement model by creating a class that inherits from a suitable sub-class of SystemModel or MeasurementModel. Then you can instantiate one of the provided filters and call the predict() and update() methods.
 
 For example consider the following code snippet
 
