@@ -24,19 +24,19 @@ def generate_ellipse(
 
     if covariance[0, 0] > covariance[1, 1]:
         phi = np.arctan2(V[1, 1], V[0, 1])
-        extend = n_std * np.flip(sigma)
+        extent = n_std * np.flip(sigma)
     else:
         phi = np.arctan2(V[1, 0], V[0, 0])
-        extend = n_std * sigma
+        extent = n_std * sigma
 
     ellipse = Ellipse(
-        xy=(mean[0], mean[1]),
-        width=extend[0] * 2,
-        height=extend[1] * 2,
+        xy=(float(mean[0, 0]), float(mean[1, 0])),
+        width=float(extent[0] * 2),
+        height=float(extent[1] * 2),
         angle=phi / np.pi * 180,
         facecolor="none",
         edgecolor=color,
-        label="",
+        label=label,
     )
     return ellipse
 
