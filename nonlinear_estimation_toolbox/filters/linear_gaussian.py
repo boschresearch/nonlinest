@@ -102,14 +102,22 @@ class LinearGaussianFilter(GaussianFilter):
 
                 self.do_measurement_gating(dim_meas, sq_meas_mahal_dist)
             else:
-                updated_state_mean, updated_state_cov, _ = utils.kalman_update(
-                    prior_state_mean,
-                    prior_state_cov,
-                    measurement,
-                    meas_mean,
-                    meas_cov,
-                    state_meas_cross_cov,
+                updated_state_mean, updated_state_cov, sq_meas_mahal_dist = (
+                    utils.kalman_update(
+                        prior_state_mean,
+                        prior_state_cov,
+                        measurement,
+                        meas_mean,
+                        meas_cov,
+                        state_meas_cross_cov,
+                    )
                 )
+
+            # --- Update innovation data with latest iteration for external access ---
+            self.last_nis = sq_meas_mahal_dist
+            self.last_innovation = measurement - meas_mean
+            self.last_innovation_cov = meas_cov.copy()
+
         except Exception:
             raise RuntimeError("Skipping linear measurement model update")
         return updated_state_mean, updated_state_cov
