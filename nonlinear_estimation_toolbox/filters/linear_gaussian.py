@@ -23,6 +23,11 @@ class LinearGaussianFilter(GaussianFilter):
         super(LinearGaussianFilter, self).__init__(name)
         self.measurement_gating_threshold = 1
 
+        # Innovation data from the last update step
+        self.last_nis = None
+        self.last_innovation = None
+        self.last_innovation_cov = None
+
     def set_measurement_gating_threshold(self, threshold: float):
         assert checks.is_pos_scalar(threshold) and "Threshold must be a positive scalar"
         self.measurement_gating_threshold = threshold
