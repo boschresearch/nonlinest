@@ -91,6 +91,11 @@ class IterativeKalmanFilter(LinearGaussianFilter):
                     state_meas_cross_cov,
                 )
 
+            # --- Store innovation data for external access ---
+            self.last_nis = sq_meas_mahal_dist
+            self.last_innovation = measurement - meas_mean
+            self.last_innovation_cov = meas_cov.copy()
+
         except Exception:
             raise RuntimeError("Ignoring measurement - implement ignoring algorithm")
 
@@ -142,14 +147,22 @@ class IterativeKalmanFilter(LinearGaussianFilter):
                 )
 
                 try:
-                    updated_state_mean, updated_state_cov, _ = utils.kalman_update(
-                        prior_state_mean,
-                        prior_state_cov,
-                        measurement,
-                        meas_mean,
-                        meas_cov,
-                        state_meas_cross_cov,
+                    updated_state_mean, updated_state_cov, sq_meas_mahal_dist = (
+                        utils.kalman_update(
+                            prior_state_mean,
+                            prior_state_cov,
+                            measurement,
+                            meas_mean,
+                            meas_cov,
+                            state_meas_cross_cov,
+                        )
                     )
+
+                    # --- Update innovation data with latest iteration ---
+                    self.last_nis = sq_meas_mahal_dist
+                    self.last_innovation = measurement - meas_mean
+                    self.last_innovation_cov = meas_cov.copy()
+
                 except Exception:
                     raise RuntimeError(
                         "Ignoring measurement - implement ignoring algorithm"
